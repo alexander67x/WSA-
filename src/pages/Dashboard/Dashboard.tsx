@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-// Sample data for the dashboard
+// Sample data for the dashboard - Security Company
 const projectData = [
-  { name: 'SISTEMA DE VIDEO VIGILANCIA', awarded: 0.8, wsc: 0.6 },
-  { name: 'SDI - ED. GREEN TOWER, SCZ', awarded: 0.9, wsc: 0.7 },
-  { name: 'CONTROL DE ACCESO - ED. GREE', awarded: 0.7, wsc: 0.5 },
-  { name: 'SEÑALES DEBILES - ED. GREEN TO', awarded: 0.6, wsc: 0.4 },
-  { name: 'PARKING - ED. GREEN TOWER, SCZ', awarded: 0.5, wsc: 0.3 },
-  { name: 'CITOFONIA - ED. GREEN TOWER, S', awarded: 0.4, wsc: 0.3 },
+  { name: 'SISTEMA DE VIDEO VIGILANCIA - ADUANA NACIONAL', awarded: 2.8, wsc: 2.2 },
+  { name: 'CONTROL DE ACCESO - BANCO NACIONAL', awarded: 1.9, wsc: 1.5 },
+  { name: 'ALARMAS DE SEGURIDAD - CENTRO COMERCIAL', awarded: 1.7, wsc: 1.3 },
+  { name: 'SISTEMA DE DETECCIÓN DE INTRUSOS - EMPRESA MINERA', awarded: 3.2, wsc: 2.6 },
+  { name: 'CÁMARAS IP - RED HOSPITALARIA', awarded: 1.5, wsc: 1.1 },
+  { name: 'SISTEMA DE MONITOREO 24/7 - AEROPUERTO', awarded: 4.1, wsc: 3.2 },
 ];
 
 const financialData = [
-  { name: 'PRIVADA', value: 1.30, color: '#10B981' },
-  { name: 'PUBLICA', value: 1.06, color: '#8B5CF6' },
+  { name: 'PRIVADA', value: 8.30, color: '#10B981' },
+  { name: 'PUBLICA', value: 6.06, color: '#8B5CF6' },
 ];
 
 const mapMarkers = [
@@ -22,14 +22,23 @@ const mapMarkers = [
     position: [-17.3895, -66.1568], 
     name: 'ADUANA NACIONAL', 
     color: 'red',
-    cities: ['Cochabamba', 'Quillacollo', 'Sacaba']
+    cities: ['Cochabamba', 'Quillacollo', 'Sacaba'],
+    projects: ['Video Vigilancia', 'Control de Acceso', 'Alarmas']
   },
   { 
     position: [-17.7833, -63.1667], 
     name: 'COMVERSA S.A.', 
     color: 'blue',
-    cities: ['Santa Cruz de la Sierra', 'Portachuelo']
+    cities: ['Santa Cruz de la Sierra', 'Portachuelo'],
+    projects: ['Sistema de Monitoreo', 'Cámaras IP', 'Detección de Intrusos']
   },
+  {
+    position: [-16.5000, -68.1500],
+    name: 'BANCO NACIONAL',
+    color: 'green',
+    cities: ['La Paz', 'El Alto'],
+    projects: ['Control de Acceso', 'Video Vigilancia', 'Alarmas Bancarias']
+  }
 ];
 
 export const Dashboard: React.FC = () => {
@@ -56,17 +65,21 @@ export const Dashboard: React.FC = () => {
                 <option>Todas</option>
                 <option>ADUANA NACIONAL</option>
                 <option>COMVERSA S.A.</option>
+                <option>BANCO NACIONAL</option>
+                <option>EMPRESA MINERA</option>
+                <option>RED HOSPITALARIA</option>
+                <option>AEROPUERTO</option>
               </select>
             </div>
             
             <div className="flex items-center space-x-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900">6</div>
-                <div className="text-xs text-gray-600">Cantidad Proyecto</div>
+                <div className="text-2xl font-bold text-gray-900">12</div>
+                <div className="text-xs text-gray-600">Proyectos Activos</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-400">0</div>
-                <div className="text-xs text-gray-600">Cantidad Venta</div>
+                <div className="text-2xl font-bold text-green-600">$14.36M</div>
+                <div className="text-xs text-gray-600">Ingresos Totales</div>
               </div>
             </div>
             
@@ -117,11 +130,11 @@ export const Dashboard: React.FC = () => {
               <div className="mt-4 space-y-2">
                 <div className="flex items-center">
                   <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-                  <span className="text-sm text-gray-600">PRIVADA: 1.30 mill.</span>
+                  <span className="text-sm text-gray-600">PRIVADA: 8.30 mill.</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
-                  <span className="text-sm text-gray-600">PUBLICA: 1.06 mill.</span>
+                  <span className="text-sm text-gray-600">PUBLICA: 6.06 mill.</span>
                 </div>
               </div>
             </div>
@@ -199,16 +212,24 @@ export const Dashboard: React.FC = () => {
                   {mapMarkers.map((marker, index) => (
                     <CircleMarker
                       key={index}
-                      center={marker.position}
+                      center={marker.position as [number, number]}
                       radius={15}
                       pathOptions={{ color: marker.color, fillColor: marker.color, fillOpacity: 0.6 }}
                     >
                       <Popup>
                         <div>
                           <h3 className="font-semibold">{marker.name}</h3>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-gray-600 mb-2">
                             {marker.cities.join(', ')}
                           </p>
+                          <div className="text-xs text-gray-500">
+                            <p className="font-medium">Proyectos de Seguridad:</p>
+                            <ul className="list-disc list-inside mt-1">
+                              {marker.projects.map((project, idx) => (
+                                <li key={idx}>{project}</li>
+                              ))}
+                            </ul>
+                          </div>
                         </div>
                       </Popup>
                     </CircleMarker>
@@ -224,13 +245,35 @@ export const Dashboard: React.FC = () => {
                   <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
                   <span className="text-sm text-gray-600">COMVERSA S.A.</span>
                 </div>
+                <div className="flex items-center">
+                  <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                  <span className="text-sm text-gray-600">BANCO NACIONAL</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      
+      {/* Bottom Navigation */}
+      <div className="mt-6 bg-white rounded-lg shadow-sm">
+        <div className="px-6 py-3">
+          <div className="flex space-x-4">
+            {['GENERAL', 'DESARROLLO CTTO.', 'GARANTIAS', 'CRONOGRAMA', 'MONITOREO', 'WSC S.A. -...', 'COSTO-PRECIO'].map((item, index) => (
+              <button
+                key={index}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  item === 'GENERAL'
+                    ? 'bg-green-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
