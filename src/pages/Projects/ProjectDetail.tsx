@@ -51,7 +51,7 @@ export const ProjectDetail: React.FC = () => {
     endDate: '2024-12-30',
     team: 25,
     budget: 2500000,
-    description: 'Proyecto de construcción de torre residencial de 20 pisos con amenidades completas.',
+    description: 'Proyecto de camaras de seguridad de torre residencial de 20 pisos con amenidades completas.',
   };
 
   const getStatusColor = (status: string) => {

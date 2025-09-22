@@ -177,7 +177,7 @@ export const KanbanBoard: React.FC = () => {
       {/* Modal para nueva tarea (placeholder) */}
       {showNewTaskModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+          <div className="bg-white roundFed-lg p-6 w-full max-w-md">
             <h3 className="text-lg font-medium mb-4">Nueva Tarea</h3>
             <p className="text-gray-600 mb-4">Formulario para crear nueva tarea se implementaría aquí</p>
             <div className="flex justify-end space-x-3">

@@ -33,7 +33,7 @@ export const Login: React.FC = () => {
             WSA
           </h2>
           <p className="mt-2 text-sm text-blue-200">
-            Sistema de Gestión de Construcción
+            Sistema de Gestión 
           </p>
         </div>
 
