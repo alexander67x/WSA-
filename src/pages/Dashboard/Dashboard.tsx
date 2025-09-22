@@ -255,25 +255,7 @@ export const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="mt-6 bg-white rounded-lg shadow-sm">
-        <div className="px-6 py-3">
-          <div className="flex space-x-4">
-            {['GENERAL', 'DESARROLLO CTTO.', 'GARANTIAS', 'CRONOGRAMA', 'MONITOREO', 'WSC S.A. -...', 'COSTO-PRECIO'].map((item, index) => (
-              <button
-                key={index}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  item === 'GENERAL'
-                    ? 'bg-green-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+      
     </div>
   );
 };
